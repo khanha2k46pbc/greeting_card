@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <p>{{state}}</p>
+    <div class="container mt-5">
+        <h1>Image Upload Example</h1>
+
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="imageUpload" accept="image/*">
+            <label class="custom-file-label" for="imageUpload">Choose Image</label>
+        </div>
+        <br><br>
+        <button type="button" class="btn btn-primary" onclick="uploadImage()">Upload</button>
+
+        <div id="imagePreview"></div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        function uploadImage() {
+            var input = document.getElementById('imageUpload');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                var image = document.createElement('img');
+                image.src = reader.result;
+                image.classList.add('img-thumbnail');
+                document.getElementById('imagePreview').appendChild(image);
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+
+</html>
