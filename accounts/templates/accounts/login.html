@@ -7,10 +7,10 @@
 </head>
 
 <body>
-    <p>{{state}}</p>
     <div class="container mt-5">
         <h2>Login</h2>
-        <form>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" class="form-control" required>
@@ -23,6 +23,7 @@
 
             <button type="submit" class="btn btn-primary">Log In</button>
         </form>
+        <p>{{error_message}}</p>
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

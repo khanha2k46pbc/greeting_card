@@ -5,11 +5,23 @@ from django.template import loader
 from django.http import Http404
 # Create your views here.
 def login(request):
-    template = loader.get_template('accounts/login.html')
-    context = {
-        'state': 'chưa hoàn thiện',
-    }
-    return HttpResponse(template.render(context, request))
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # Authenticate user
+        try:
+            user = models.User.objects.get(username=username, password=password)
+            
+            template = loader.get_template('accounts/go_to_home.html')
+            context = {}
+            return HttpResponse(template.render(context, request))
+        except models.User.DoesNotExist:
+            # Incorrect username or password
+            error_message = 'Username or password is incorrect.'
+            return render(request, 'accounts/login.html', {'error_message': error_message})
+            
+    return render(request, 'accounts/login.html')
 
 def register(request):
     return HttpResponse("Đăng ký, chưa hoàn thiện")
