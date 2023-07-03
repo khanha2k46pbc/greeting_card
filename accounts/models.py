@@ -1,4 +1,6 @@
 from django.db import models
+import os
+
 
 # Create your models here.
 class User(models.Model):
@@ -7,17 +9,27 @@ class User(models.Model):
     email = models.EmailField(max_length=254)
     phone = models.CharField(max_length=10)
     address = models.CharField(max_length=100)
-    def  __str__(self):
+
+    def __str__(self):
         return self.username
+
 
 class Upload_image(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     path = models.CharField(max_length=254)
-    def  __str__(self):
+
+    def __str__(self):
         return self.path
+
 
 class Stored_image(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     path = models.CharField(max_length=254)
-    def  __str__(self):
+    file = models.FileField(upload_to=os.path.join("user_images/", str(user)))
+
+    def __str__(self):
         return self.path
+    
+    def create_path(self):
+        if path not exist:
+            create path
