@@ -25,11 +25,6 @@ class Upload_image(models.Model):
 class Stored_image(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     path = models.CharField(max_length=254)
-    file = models.FileField(upload_to=os.path.join("user_images/", str(user)))
 
     def __str__(self):
         return self.path
-    
-    def create_path(self):
-        if path not exist:
-            create path
